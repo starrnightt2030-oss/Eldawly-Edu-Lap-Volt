@@ -37,12 +37,14 @@ window.EDUVOLT_API_MODE="local";
 <body>
 <div id="login" class="login">
  <div class="loginbox">
-  <div class="logo">E</div><h1>EduVolt Academy</h1>
-  <div class="muted">Sign in to your virtual electrical laboratory</div>
-  <input id="email" value="student@eduvolt.local" placeholder="Email">
-  <input id="password" value="EduVolt@123" type="password" placeholder="Password">
-  <button class="btn primary full" onclick="login()">Sign in</button>
-  <p class="muted">Demo student: student@eduvolt.local</p>
+  <div class="logo">E</div>
+  <h1>EduVolt Academy</h1>
+  <div class="muted">Offline Demo • No sign in required</div>
+  <p class="muted" style="margin-top:18px">Choose the mode you want to test.</p>
+  <button class="btn primary full" style="margin-top:8px" onclick="enterDemo('STUDENT')">👨‍🎓 Student Mode</button>
+  <button class="btn full" style="margin-top:10px" onclick="enterDemo('TEACHER')">👨‍🏫 Teacher Mode</button>
+  <button class="btn full" style="margin-top:10px" onclick="resetDemo()">↻ Reset Demo Data</button>
+  <p class="muted" style="margin-top:16px">All data stays on this device/browser.</p>
  </div>
 </div>
 <div id="app" class="app hidden">
@@ -53,7 +55,7 @@ window.EDUVOLT_API_MODE="local";
 <button data-page="teacher">▣ Teacher</button>
 </nav>
 <footer id="userBox"></footer></aside>
-<main><header class="top"><h1 id="title">Dashboard</h1><span class="online">● CONNECTED</span></header><div class="content" id="content"></div></main>
+<main><header class="top"><h1 id="title">Dashboard</h1><span class="online">● OFFLINE DEMO</span></header><div class="content" id="content"></div></main>
 </div>
 <script>
 const db={
@@ -64,53 +66,29 @@ const db={
  session:null
 };
 const state={page:"dashboard",running:false,nodes:[],selected:null,wires:[],meters:{v:"230.0 V",i:"0.000 A",r:"0.00 Ω",p:"0.0 W"}};
-async function login(){
- const email=document.getElementById("email").value.trim();
- const password=document.getElementById("password").value;
- try{
-  const r=await fetch("/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,password})});
-  const d=await r.json();
-  if(!r.ok) throw new Error(d.error||"Login failed");
-  db.session={token:d.token,userId:d.user.id,role:d.user.role};
-  db.user=d.user;
-  const [ex,pr]=await Promise.all([
-   fetch("/api/experiments",{headers:{Authorization:"Bearer "+d.token}}),
-   fetch("/api/student/progress",{headers:{Authorization:"Bearer "+d.token}})
-  ]);
-  if(ex.ok){const x=await ex.json();db.experiments=x.data||[];}
-  if(pr.ok){const x=await pr.json();db.student={...db.student,...(x.data||{})};}
-  document.getElementById("login").classList.add("hidden");
-  document.getElementById("app").classList.remove("hidden");
-  document.getElementById("userBox").innerHTML=db.user.name+"<br>"+db.user.email;
-  render();
- }catch(e){alert(e.message)}
-}
+const STORAGE_KEY="eduvolt-offline-demo-v2";
+function loadLocal(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved?.student)db.student={...db.student,...saved.student};if(saved?.attempt)db.attempt={...db.attempt,...saved.attempt};}catch(_){} }
+function saveLocal(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({student:db.student,attempt:db.attempt}));}catch(_){} }
+function enterDemo(role){loadLocal();db.user=role==="TEACHER"?{id:"teacher-demo",name:"EduVolt Teacher",email:"teacher@eduvolt.local",role:"TEACHER"}:{id:"student-001",name:"EduVolt Student",email:"student@eduvolt.local",role:"STUDENT"};db.session={demo:true,role};document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");document.getElementById("userBox").innerHTML=db.user.name+"<br>"+db.user.role+"<br><button class="btn" style="margin-top:8px" onclick="leaveDemo()">Switch mode</button>";state.page=role==="TEACHER"?"teacher":"dashboard";render();}
+function leaveDemo(){document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden");}
+function resetDemo(){try{localStorage.removeItem(STORAGE_KEY)}catch(_){}db.student={studentCode:"EV-S-001",className:"Electrical Installations",totalScore:0,attempts:0,completed:[]};db.attempt={id:"attempt-001",experimentId:"exp-lamp-001",status:"STARTED",score:0,passed:false};alert("Demo data has been reset.");}
+function login(){enterDemo("STUDENT")}
 function setPage(p){state.page=p;render()}
 function addNode(name){const id=Date.now()+"-"+state.nodes.length;state.nodes.push({id,name,x:110+(state.nodes.length%4)*135,y:170+Math.floor(state.nodes.length/4)*100,rot:0});state.selected=id;drawLab()}
 function connect(){if(state.nodes.length<2){alert("Add two or more components.");return}state.wires=[];for(let i=0;i<state.nodes.length-1;i++)state.wires.push([state.nodes[i].id,state.nodes[i+1].id]);drawLab()}
 function run(){if(state.nodes.length<2){alert("Build the circuit first.");return}state.running=true;state.meters={v:"230.0 V",i:"2.300 A",r:"100.00 Ω",p:"529.0 W"};drawLab()}
 function stop(){state.running=false;state.meters={v:"230.0 V",i:"0.000 A",r:"0.00 Ω",p:"0.0 W"};drawLab()}
-async function submit(){
+function submit(){
  if(!state.running){alert("Run the simulation first.");return}
- const token=db.session?.token;
- try{
-  let attemptId=db.attempt.id;
-  if(!String(attemptId).startsWith("attempt-")){attemptId=db.attempt.id;}
-  const body={score:95,feedback:["Circuit completed correctly."]};
-  const r=await fetch("/api/attempts/"+encodeURIComponent(attemptId)+"/submit",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(body)});
-  if(!r.ok){
-   const create=await fetch("/api/attempts",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify({experimentId:"exp-lamp-001"})});
-   const cd=await create.json();
-   if(!create.ok) throw new Error(cd.error||"Unable to start attempt");
-   db.attempt.id=cd.data.id;
-   const rr=await fetch("/api/attempts/"+encodeURIComponent(db.attempt.id)+"/submit",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(body)});
-   if(!rr.ok) throw new Error("Submission failed");
-  }
-  const pr=await fetch("/api/student/progress",{headers:{Authorization:"Bearer "+token}});
-  if(pr.ok){const pd=await pr.json();db.student={...db.student,...pd.data};}
-  db.attempt.status="GRADED";db.attempt.score=95;db.attempt.passed=true;
-  alert("Submission accepted — 95/100");render();
- }catch(e){alert(e.message)}
+ db.attempt.status="GRADED";
+ db.attempt.score=95;
+ db.attempt.passed=true;
+ db.student.totalScore=(db.student.totalScore||0)+95;
+ db.student.attempts=(db.student.attempts||0)+1;
+ if(!db.student.completed.includes(db.attempt.experimentId)) db.student.completed.push(db.attempt.experimentId);
+ saveLocal();
+ alert("Submission accepted — 95/100");
+ render();
 }
 function clearLab(){state.nodes=[];state.wires=[];state.selected=null;stop()}
 function rotate(){const n=state.nodes.find(x=>x.id===state.selected);if(n){n.rot=(n.rot+90)%360;drawLab()}}
@@ -135,6 +113,8 @@ return `<div class="cards">${card("Students",126)}${card("Experiments",8)}${card
 </div></div>`}
 
 function render(){document.getElementById("title").textContent=state.page==="lab"?"Virtual Lab":state.page[0].toUpperCase()+state.page.slice(1);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===state.page));if(state.page==="lab")return drawLab();document.getElementById("content").innerHTML=state.page==="dashboard"?dashboard():state.page==="experiments"?experiments():state.page==="progress"?progress():teacher()}
+loadLocal();
+loadLocal();
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>setPage(b.dataset.page));
 if("serviceWorker" in navigator)navigator.serviceWorker.register("/service-worker.js").catch(()=>{});
 </script>

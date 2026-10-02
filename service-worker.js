@@ -1,11 +1,11 @@
-const CACHE = "eduvolt-offline-v1";
+const CACHE = "eduvolt-offline-v2";
 const CORE = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./service-worker.js",
-  "./icon-192.svg",
-  "./icon-512.svg"
+  "./icons/icon-192.svg",
+  "./icons/icon-512.svg"
 ];
 
 self.addEventListener("install", event => {

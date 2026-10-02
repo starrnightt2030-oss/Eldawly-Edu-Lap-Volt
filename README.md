@@ -1,18 +1,6 @@
-# EduVolt Academy — Mobile GitHub Upload
+# EduVolt Academy — Offline Demo PWA
 
-This package is intentionally FLAT.
+No login and no server are required. Choose Student Mode or Teacher Mode.
+Data is stored locally in the browser.
 
-Upload ALL files in this package directly to the repository root.
-No folder creation is required.
-
-Required root files:
-- index.html
-- manifest.webmanifest
-- service-worker.js
-- eduvolt-demo-config.js
-- simulation-adapter.js
-- icon-192.svg
-- icon-512.svg
-
-After uploading, enable GitHub Pages for the repository.
-The PWA uses root-relative icons and does not require an `icons` folder.
+Upload every file in this package directly to the GitHub repository root.

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#081a29">
+<link rel="manifest" href="manifest.webmanifest">
+<title>EduVolt Academy</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#06131f;color:#eaf5ff;font-family:Inter,system-ui,Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.login{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 20%,#123957,#06131f 60%)}
+.loginbox{width:min(430px,92vw);background:#0b2235;border:1px solid #204660;border-radius:18px;padding:28px;box-shadow:0 20px 60px #0008}
+.logo{width:52px;height:52px;border-radius:14px;background:#1788e8;display:grid;place-items:center;font-weight:900;font-size:22px}.login h1{margin:14px 0 4px}.muted{color:#86a1b5;font-size:12px}
+input{width:100%;margin:15px 0 10px;padding:12px;border-radius:9px;border:1px solid #29516b;background:#071925;color:#fff;outline:none}
+.btn{border:1px solid #2b5875;background:#10314b;color:#e8f5ff;padding:9px 12px;border-radius:8px}.primary{background:#167bd1;border-color:#2996ef;color:#fff}.full{width:100%}
+.app{min-height:100vh;display:grid;grid-template-columns:240px 1fr}aside{background:#0a1d2d;border-right:1px solid #17374f;padding:18px 12px;display:flex;flex-direction:column}
+.brand{display:flex;gap:10px;align-items:center;padding:8px;margin-bottom:18px}.brand small{display:block;color:#7894a9}
+nav{display:grid;gap:6px}nav button{border:0;background:transparent;color:#9db4c7;text-align:left;padding:12px;border-radius:9px}nav button.active,nav button:hover{background:#123653;color:#fff}
+aside footer{margin-top:auto;color:#68849a;font-size:11px;padding:8px}
+main{min-width:0}.top{height:64px;border-bottom:1px solid #17374f;background:#071925;display:flex;justify-content:space-between;align-items:center;padding:0 20px}.top h1{font-size:18px}.online{font-size:12px;color:#61e6a9}.content{padding:18px;max-width:1500px;margin:auto}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:#0b2235;border:1px solid #173e59;border-radius:13px;padding:16px}.big{font-size:27px;font-weight:800;margin-top:6px}
+.item{display:flex;justify-content:space-between;gap:12px;align-items:center}.list{display:grid;gap:10px}.progress{height:7px;background:#17354c;border-radius:9px;overflow:hidden}.progress i{display:block;height:100%;background:#2996ef}
+.lab{display:grid;grid-template-columns:220px 1fr 245px;gap:12px;height:calc(100vh - 100px)}.panel{background:#0b2235;border:1px solid #173e59;border-radius:13px;overflow:hidden}.ph{padding:12px 14px;border-bottom:1px solid #173e59;font-size:12px;font-weight:800}.palette{padding:10px;display:grid;gap:7px}.part{padding:10px;border:1px solid #214b67;border-radius:8px;background:#0d2b42;color:#d8ebf8}.canvas{position:relative;background:#071925;overflow:hidden}.grid{position:absolute;inset:0;background-image:linear-gradient(#11324a 1px,transparent 1px),linear-gradient(90deg,#11324a 1px,transparent 1px);background-size:28px 28px;opacity:.5}.tools{position:absolute;z-index:3;left:10px;right:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap}.node{position:absolute;width:105px;height:62px;background:#102e46;border:2px solid #5ab6ff;border-radius:10px;display:grid;place-items:center;font-size:11px;text-align:center}.node.sel{border-color:#ffd166}.wire{position:absolute;height:3px;background:#42c7ff;transform-origin:left center}.term{position:absolute;width:9px;height:9px;background:#ffd166;border-radius:50%;top:24px}.term.l{left:-6px}.term.r{right:-6px}.meters{padding:10px;display:grid;gap:8px}.meter{background:#071925;border:1px solid #20455f;border-radius:9px;padding:10px}.meter small{display:block;color:#7692a7}.meter b{display:block;font-size:21px;margin-top:3px}.actions{padding:10px;border-top:1px solid #173e59}
+@media(max-width:1000px){.app{grid-template-columns:190px 1fr}.lab{grid-template-columns:180px 1fr}.lab>.right{display:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.app{display:block}aside{display:none}.content{padding:10px}.cards{grid-template-columns:1fr 1fr}.lab{display:block;height:auto}.lab>.left{display:none}.lab>.center{height:70vh}.lab>.right{display:block;margin-top:10px}}
+</style>
+
+<script>
+window.EDUVOLT_BUILD="offline-demo";
+window.EDUVOLT_AUTH_MODE="disabled";
+window.EDUVOLT_STORAGE="local";
+window.EDUVOLT_PWA=true;
+window.EDUVOLT_API_MODE="local";
+</script>
+<script src="eduvolt-demo-config.js"></script>
+</head>
+<body>
+<div id="login" class="login">
+ <div class="loginbox">
+  <div class="logo">E</div><h1>EduVolt Academy</h1>
+  <div class="muted">Sign in to your virtual electrical laboratory</div>
+  <input id="email" value="student@eduvolt.local" placeholder="Email">
+  <input id="password" value="EduVolt@123" type="password" placeholder="Password">
+  <button class="btn primary full" onclick="login()">Sign in</button>
+  <p class="muted">Demo student: student@eduvolt.local</p>
+ </div>
+</div>
+<div id="app" class="app hidden">
+<aside><div class="brand"><div class="logo">E</div><div><b>EduVolt</b><small>ACADEMY</small></div></div>
+<nav>
+<button data-page="dashboard">⌂ Dashboard</button><button data-page="lab">⚡ Virtual Lab</button>
+<button data-page="experiments">◈ Experiments</button><button data-page="progress">◉ My Progress</button>
+<button data-page="teacher">▣ Teacher</button>
+</nav>
+<footer id="userBox"></footer></aside>
+<main><header class="top"><h1 id="title">Dashboard</h1><span class="online">● CONNECTED</span></header><div class="content" id="content"></div></main>
+</div>
+<script>
+const db={
+ user:{id:"student-001",name:"EduVolt Student",email:"student@eduvolt.local",role:"STUDENT"},
+ student:{studentCode:"EV-S-001",className:"Electrical Installations",totalScore:0,attempts:0,completed:[]},
+ experiments:[{id:"exp-lamp-001",title:"Basic Lamp Circuit",subject:"Electrical Installations",level:"Beginner",passing:70,published:true}],
+ attempt:{id:"attempt-001",experimentId:"exp-lamp-001",status:"STARTED",score:0,passed:false},
+ session:null
+};
+const state={page:"dashboard",running:false,nodes:[],selected:null,wires:[],meters:{v:"230.0 V",i:"0.000 A",r:"0.00 Ω",p:"0.0 W"}};
+async function login(){
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ try{
+  const r=await fetch("/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,password})});
+  const d=await r.json();
+  if(!r.ok) throw new Error(d.error||"Login failed");
+  db.session={token:d.token,userId:d.user.id,role:d.user.role};
+  db.user=d.user;
+  const [ex,pr]=await Promise.all([
+   fetch("/api/experiments",{headers:{Authorization:"Bearer "+d.token}}),
+   fetch("/api/student/progress",{headers:{Authorization:"Bearer "+d.token}})
+  ]);
+  if(ex.ok){const x=await ex.json();db.experiments=x.data||[];}
+  if(pr.ok){const x=await pr.json();db.student={...db.student,...(x.data||{})};}
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  document.getElementById("userBox").innerHTML=db.user.name+"<br>"+db.user.email;
+  render();
+ }catch(e){alert(e.message)}
+}
+function setPage(p){state.page=p;render()}
+function addNode(name){const id=Date.now()+"-"+state.nodes.length;state.nodes.push({id,name,x:110+(state.nodes.length%4)*135,y:170+Math.floor(state.nodes.length/4)*100,rot:0});state.selected=id;drawLab()}
+function connect(){if(state.nodes.length<2){alert("Add two or more components.");return}state.wires=[];for(let i=0;i<state.nodes.length-1;i++)state.wires.push([state.nodes[i].id,state.nodes[i+1].id]);drawLab()}
+function run(){if(state.nodes.length<2){alert("Build the circuit first.");return}state.running=true;state.meters={v:"230.0 V",i:"2.300 A",r:"100.00 Ω",p:"529.0 W"};drawLab()}
+function stop(){state.running=false;state.meters={v:"230.0 V",i:"0.000 A",r:"0.00 Ω",p:"0.0 W"};drawLab()}
+async function submit(){
+ if(!state.running){alert("Run the simulation first.");return}
+ const token=db.session?.token;
+ try{
+  let attemptId=db.attempt.id;
+  if(!String(attemptId).startsWith("attempt-")){attemptId=db.attempt.id;}
+  const body={score:95,feedback:["Circuit completed correctly."]};
+  const r=await fetch("/api/attempts/"+encodeURIComponent(attemptId)+"/submit",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(body)});
+  if(!r.ok){
+   const create=await fetch("/api/attempts",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify({experimentId:"exp-lamp-001"})});
+   const cd=await create.json();
+   if(!create.ok) throw new Error(cd.error||"Unable to start attempt");
+   db.attempt.id=cd.data.id;
+   const rr=await fetch("/api/attempts/"+encodeURIComponent(db.attempt.id)+"/submit",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(body)});
+   if(!rr.ok) throw new Error("Submission failed");
+  }
+  const pr=await fetch("/api/student/progress",{headers:{Authorization:"Bearer "+token}});
+  if(pr.ok){const pd=await pr.json();db.student={...db.student,...pd.data};}
+  db.attempt.status="GRADED";db.attempt.score=95;db.attempt.passed=true;
+  alert("Submission accepted — 95/100");render();
+ }catch(e){alert(e.message)}
+}
+function clearLab(){state.nodes=[];state.wires=[];state.selected=null;stop()}
+function rotate(){const n=state.nodes.find(x=>x.id===state.selected);if(n){n.rot=(n.rot+90)%360;drawLab()}}
+function drawLab(){document.getElementById("content").innerHTML=labHTML();renderNodes();renderWires()}
+function labHTML(){return `<div class="lab"><div class="panel left"><div class="ph">COMPONENT LIBRARY</div><div class="palette">${["AC Source","Switch","Lamp","Motor","Resistor","Fuse"].map(x=>`<button class="part" onclick="addNode('${x}')">${x}</button>`).join("")}<button class="btn" onclick="connect()">Auto Wire</button></div></div><div class="panel center"><div class="grid"></div><div class="tools"><button class="btn" onclick="clearLab()">Clear</button><button class="btn" onclick="rotate()">Rotate</button><button class="btn" onclick="connect()">Connect</button><button class="btn primary" onclick="run()">▶ Run</button><button class="btn" onclick="stop()">■ Stop</button></div><div id="wires"></div><div id="nodes"></div></div><div class="panel right"><div class="ph">LIVE INSTRUMENTS</div><div class="meters">${meter("VOLTAGE",state.meters.v)}${meter("CURRENT",state.meters.i)}${meter("RESISTANCE",state.meters.r)}${meter("POWER",state.meters.p)}${meter("SIMULATION",state.running?"RUNNING":"STOPPED")}</div><div class="actions"><button class="btn primary" onclick="submit()">Submit Experiment</button></div></div></div>`}
+function meter(a,b){return `<div class="meter"><small>${a}</small><b>${b}</b></div>`}
+function renderNodes(){const e=document.getElementById("nodes");if(!e)return;e.innerHTML=state.nodes.map(n=>`<div class="node ${n.id===state.selected?"sel":""}" onclick="state.selected='${n.id}';drawLab()" style="left:${n.x}px;top:${n.y}px;transform:rotate(${n.rot}deg)"><span class="term l"></span>${n.name}<span class="term r"></span></div>`).join("")}
+function renderWires(){const e=document.getElementById("wires");if(!e)return;e.innerHTML=state.wires.map(w=>{const a=state.nodes.find(n=>n.id===w[0]),b=state.nodes.find(n=>n.id===w[1]);if(!a||!b)return"";const x1=a.x+105,y1=a.y+31,x2=b.x,y2=b.y+31,dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy),ang=Math.atan2(dy,dx)*180/Math.PI;return `<div class="wire" style="left:${x1}px;top:${y1}px;width:${len}px;transform:rotate(${ang}deg)"></div>`}).join("")}
+function card(a,b){return `<div class="card"><div class="muted">${a}</div><div class="big">${b}</div></div>`}
+function dashboard(){const avg=db.student.attempts?Math.round(db.student.totalScore/(db.student.attempts*100)*100):0;return `<div class="cards">${card("Completed",db.student.completed.length)}${card("Average Score",avg+"%")}${card("Attempts",db.student.attempts)}${card("Total Score",db.student.totalScore)}</div><div class="card" style="margin-top:12px"><b>Welcome, ${db.user.name}</b><p class="muted">Your learning data is now read from the application data layer.</p><button class="btn primary" onclick="setPage('lab')">Open Virtual Lab</button></div>`}
+function experiments(){return `<div class="list">${db.experiments.filter(x=>x.published).map(x=>`<div class="card item"><div><b>${x.title}</b><div class="muted">${x.subject} · ${x.level} · Pass ${x.passing}%</div></div><button class="btn primary" onclick="setPage('lab')">Start</button></div>`).join("")}</div>`}
+function progress(){return `<div class="cards">${card("Completed",db.student.completed.length)}${card("Attempts",db.student.attempts)}${card("Total Score",db.student.totalScore)}${card("Latest",db.attempt.status==="GRADED"?"95/100":"—")}</div><div class="card" style="margin-top:12px"><b>Basic Lamp Circuit</b><p class="muted">${db.attempt.status==="GRADED"?"Passed — result saved in application data.":"Not submitted yet."}</p></div>`}
+function teacher(){
+return `<div class="cards">${card("Students",126)}${card("Experiments",8)}${card("Submissions Today",34)}${card("Average Score","88%")}</div>
+<div class="card" style="margin-top:12px">
+<b>Teacher Workspace</b>
+<p class="muted">Manage students, experiments and submissions from one workspace.</p>
+<div class="list" style="margin-top:12px">
+<div class="item"><span>Students directory</span><button class="btn" onclick="alert('Student directory connected to the management service.')">Open</button></div>
+<div class="item"><span>Experiment management</span><button class="btn" onclick="alert('Create / publish / unpublish is connected to the management layer.')">Open</button></div>
+<div class="item"><span>Submission monitoring</span><button class="btn" onclick="alert('Submission monitoring is connected to attempts data.')">Open</button></div>
+</div></div>`}
+
+function render(){document.getElementById("title").textContent=state.page==="lab"?"Virtual Lab":state.page[0].toUpperCase()+state.page.slice(1);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===state.page));if(state.page==="lab")return drawLab();document.getElementById("content").innerHTML=state.page==="dashboard"?dashboard():state.page==="experiments"?experiments():state.page==="progress"?progress():teacher()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>setPage(b.dataset.page));
+if("serviceWorker" in navigator)navigator.serviceWorker.register("/service-worker.js").catch(()=>{});
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    const base = document.querySelector("base")?.href || location.href;
+    const sw = new URL("service-worker.js", base);
+    navigator.serviceWorker.register(sw.pathname);
+  });
+}
+</script>
+</body>
+</html>

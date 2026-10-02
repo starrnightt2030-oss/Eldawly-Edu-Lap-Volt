@@ -1,0 +1,25 @@
+{
+  "name": "EduVolt Academy",
+  "short_name": "EduVolt",
+  "description": "EduVolt offline electrical learning and virtual laboratory",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#06131f",
+  "theme_color": "#167bd1",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

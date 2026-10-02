@@ -69,7 +69,7 @@ const state={page:"dashboard",running:false,nodes:[],selected:null,wires:[],mete
 const STORAGE_KEY="eduvolt-offline-demo-v2";
 function loadLocal(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved?.student)db.student={...db.student,...saved.student};if(saved?.attempt)db.attempt={...db.attempt,...saved.attempt};}catch(_){} }
 function saveLocal(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({student:db.student,attempt:db.attempt}));}catch(_){} }
-function enterDemo(role){loadLocal();db.user=role==="TEACHER"?{id:"teacher-demo",name:"EduVolt Teacher",email:"teacher@eduvolt.local",role:"TEACHER"}:{id:"student-001",name:"EduVolt Student",email:"student@eduvolt.local",role:"STUDENT"};db.session={demo:true,role};document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");document.getElementById("userBox").innerHTML=db.user.name+"<br>"+db.user.role+"<br><button class="btn" style="margin-top:8px" onclick="leaveDemo()">Switch mode</button>";state.page=role==="TEACHER"?"teacher":"dashboard";render();}
+function enterDemo(role){loadLocal();db.user=role==="TEACHER"?{id:"teacher-demo",name:"EduVolt Teacher",email:"teacher@eduvolt.local",role:"TEACHER"}:{id:"student-001",name:"EduVolt Student",email:"student@eduvolt.local",role:"STUDENT"};db.session={demo:true,role};document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");document.getElementById("userBox").innerHTML=`${db.user.name}<br>${db.user.role}<br><button class="btn" style="margin-top:8px" onclick="leaveDemo()">Switch mode</button>`;state.page=role==="TEACHER"?"teacher":"dashboard";render();}
 function leaveDemo(){document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden");}
 function resetDemo(){try{localStorage.removeItem(STORAGE_KEY)}catch(_){}db.student={studentCode:"EV-S-001",className:"Electrical Installations",totalScore:0,attempts:0,completed:[]};db.attempt={id:"attempt-001",experimentId:"exp-lamp-001",status:"STARTED",score:0,passed:false};alert("Demo data has been reset.");}
 function login(){enterDemo("STUDENT")}
@@ -116,7 +116,7 @@ function render(){document.getElementById("title").textContent=state.page==="lab
 loadLocal();
 loadLocal();
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>setPage(b.dataset.page));
-if("serviceWorker" in navigator)navigator.serviceWorker.register("/service-worker.js").catch(()=>{});
+
 </script>
 
 <script>

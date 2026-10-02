@@ -1,6 +1,12 @@
-# EduVolt Academy — Offline Demo PWA
+# EduVolt Academy — GitHub Pages Mobile Flat v3
 
-No login and no server are required. Choose Student Mode or Teacher Mode.
-Data is stored locally in the browser.
+Upload every file in this package directly to the repository root.
+No folders are required.
 
-Upload every file in this package directly to the GitHub repository root.
+This build is the offline demo:
+- No login
+- Student Mode
+- Teacher Mode
+- Local browser data
+- PWA / GitHub Pages compatible
+- Fixed JavaScript boot error

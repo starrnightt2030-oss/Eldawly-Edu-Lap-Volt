@@ -4,8 +4,8 @@ const CORE = [
   "./index.html",
   "./manifest.webmanifest",
   "./service-worker.js",
-  "./icons/icon-192.svg",
-  "./icons/icon-512.svg"
+  "./icon-192.svg",
+  "./icon-512.svg"
 ];
 
 self.addEventListener("install", event => {

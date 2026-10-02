@@ -1,7 +1,7 @@
 window.EduVoltDemoConfig = {
   mode: "offline",
   authentication: false,
-  persistence: "localStorage",
+  persistence: "IndexedDB/LocalStorage",
   api: false,
   pwa: true,
   roles: ["STUDENT", "TEACHER"],

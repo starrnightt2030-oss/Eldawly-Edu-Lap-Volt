@@ -2,131 +2,115 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#081a29">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06131f">
+<meta name="description" content="EduVolt Academy offline virtual electrical laboratory">
 <link rel="manifest" href="manifest.webmanifest">
 <title>EduVolt Academy</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#06131f;color:#eaf5ff;font-family:Inter,system-ui,Arial,sans-serif}
-button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.login{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 20%,#123957,#06131f 60%)}
-.loginbox{width:min(430px,92vw);background:#0b2235;border:1px solid #204660;border-radius:18px;padding:28px;box-shadow:0 20px 60px #0008}
-.logo{width:52px;height:52px;border-radius:14px;background:#1788e8;display:grid;place-items:center;font-weight:900;font-size:22px}.login h1{margin:14px 0 4px}.muted{color:#86a1b5;font-size:12px}
-input{width:100%;margin:15px 0 10px;padding:12px;border-radius:9px;border:1px solid #29516b;background:#071925;color:#fff;outline:none}
-.btn{border:1px solid #2b5875;background:#10314b;color:#e8f5ff;padding:9px 12px;border-radius:8px}.primary{background:#167bd1;border-color:#2996ef;color:#fff}.full{width:100%}
-.app{min-height:100vh;display:grid;grid-template-columns:240px 1fr}aside{background:#0a1d2d;border-right:1px solid #17374f;padding:18px 12px;display:flex;flex-direction:column}
-.brand{display:flex;gap:10px;align-items:center;padding:8px;margin-bottom:18px}.brand small{display:block;color:#7894a9}
-nav{display:grid;gap:6px}nav button{border:0;background:transparent;color:#9db4c7;text-align:left;padding:12px;border-radius:9px}nav button.active,nav button:hover{background:#123653;color:#fff}
-aside footer{margin-top:auto;color:#68849a;font-size:11px;padding:8px}
-main{min-width:0}.top{height:64px;border-bottom:1px solid #17374f;background:#071925;display:flex;justify-content:space-between;align-items:center;padding:0 20px}.top h1{font-size:18px}.online{font-size:12px;color:#61e6a9}.content{padding:18px;max-width:1500px;margin:auto}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:#0b2235;border:1px solid #173e59;border-radius:13px;padding:16px}.big{font-size:27px;font-weight:800;margin-top:6px}
-.item{display:flex;justify-content:space-between;gap:12px;align-items:center}.list{display:grid;gap:10px}.progress{height:7px;background:#17354c;border-radius:9px;overflow:hidden}.progress i{display:block;height:100%;background:#2996ef}
-.lab{display:grid;grid-template-columns:220px 1fr 245px;gap:12px;height:calc(100vh - 100px)}.panel{background:#0b2235;border:1px solid #173e59;border-radius:13px;overflow:hidden}.ph{padding:12px 14px;border-bottom:1px solid #173e59;font-size:12px;font-weight:800}.palette{padding:10px;display:grid;gap:7px}.part{padding:10px;border:1px solid #214b67;border-radius:8px;background:#0d2b42;color:#d8ebf8}.canvas{position:relative;background:#071925;overflow:hidden}.grid{position:absolute;inset:0;background-image:linear-gradient(#11324a 1px,transparent 1px),linear-gradient(90deg,#11324a 1px,transparent 1px);background-size:28px 28px;opacity:.5}.tools{position:absolute;z-index:3;left:10px;right:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap}.node{position:absolute;width:105px;height:62px;background:#102e46;border:2px solid #5ab6ff;border-radius:10px;display:grid;place-items:center;font-size:11px;text-align:center}.node.sel{border-color:#ffd166}.wire{position:absolute;height:3px;background:#42c7ff;transform-origin:left center}.term{position:absolute;width:9px;height:9px;background:#ffd166;border-radius:50%;top:24px}.term.l{left:-6px}.term.r{right:-6px}.meters{padding:10px;display:grid;gap:8px}.meter{background:#071925;border:1px solid #20455f;border-radius:9px;padding:10px}.meter small{display:block;color:#7692a7}.meter b{display:block;font-size:21px;margin-top:3px}.actions{padding:10px;border-top:1px solid #173e59}
-@media(max-width:1000px){.app{grid-template-columns:190px 1fr}.lab{grid-template-columns:180px 1fr}.lab>.right{display:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.app{display:block}aside{display:none}.content{padding:10px}.cards{grid-template-columns:1fr 1fr}.lab{display:block;height:auto}.lab>.left{display:none}.lab>.center{height:70vh}.lab>.right{display:block;margin-top:10px}}
+:root{--bg:#06131f;--panel:#0b2235;--panel2:#0e2c43;--line:#1b4864;--text:#eaf5ff;--muted:#89a5b9;--blue:#1684df;--blue2:#2999f0;--green:#5ee6ad;--yellow:#ffd166;--red:#ff6b6b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}.muted{color:var(--muted)}
+.btn{border:1px solid #2b5875;background:#10314b;color:var(--text);padding:10px 13px;border-radius:9px;transition:.15s}.btn:hover{filter:brightness(1.12)}.primary{background:var(--blue);border-color:var(--blue2);color:#fff}.danger{border-color:#7b3940;background:#341c23}.success{border-color:#31745c;background:#123c30}.full{width:100%}
+.start{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 15%,#123b59,#06131f 62%)}.startbox{width:min(900px,94vw);background:rgba(11,34,53,.96);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 24px 80px #0008}.brandBig{display:flex;gap:14px;align-items:center}.logo{width:58px;height:58px;border-radius:15px;background:var(--blue);display:grid;place-items:center;font-size:25px;font-weight:900}.start h1{font-size:34px;margin:0}.start p{color:var(--muted)}.modegrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}.mode{padding:22px;border:1px solid #23506c;background:#0d2b42;border-radius:15px;text-align:left;color:var(--text)}.mode:hover{border-color:#4b99c8;transform:translateY(-1px)}.mode b{display:block;font-size:21px;margin-bottom:6px}.demo-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.app{min-height:100vh;display:grid;grid-template-columns:230px 1fr}aside{background:#081b2b;border-right:1px solid #17374f;padding:15px 11px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;padding:8px;margin-bottom:16px}.brand .logo{width:42px;height:42px;font-size:19px;border-radius:12px}.brand small{display:block;color:#7894a9}nav{display:grid;gap:5px}nav button{border:0;background:transparent;color:#9db4c7;text-align:left;padding:11px;border-radius:9px}nav button.active,nav button:hover{background:#123653;color:#fff}aside footer{margin-top:auto;color:#68849a;font-size:11px;padding:8px}.mode-badge{display:inline-block;margin-top:8px;padding:4px 8px;border:1px solid #295b75;border-radius:999px;font-size:10px;color:var(--green)}
+main{min-width:0}.top{height:64px;border-bottom:1px solid #17374f;background:#071925;display:flex;justify-content:space-between;align-items:center;padding:0 18px;position:sticky;top:0;z-index:20}.top h1{font-size:18px}.online{font-size:12px;color:var(--green)}.content{padding:16px;max-width:1500px;margin:auto}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:var(--panel);border:1px solid #173e59;border-radius:13px;padding:15px}.big{font-size:28px;font-weight:800;margin-top:5px}.list{display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:12px;align-items:center}.progress{height:8px;background:#17354c;border-radius:9px;overflow:hidden}.progress i{display:block;height:100%;background:var(--blue2)}.sectionTitle{font-size:14px;font-weight:800;margin:18px 0 10px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{font-size:11px;border:1px solid #2a5873;background:#0d2b42;padding:5px 8px;border-radius:999px;color:#b9d1e1}
+.lab{display:grid;grid-template-columns:220px 1fr 255px;gap:11px;min-height:calc(100vh - 96px)}.panel{background:var(--panel);border:1px solid #173e59;border-radius:13px;overflow:hidden}.ph{padding:11px 13px;border-bottom:1px solid #173e59;font-size:12px;font-weight:800}.palette{padding:9px;display:grid;gap:7px}.part{padding:10px;border:1px solid #214b67;border-radius:8px;background:#0d2b42;color:#d8ebf8;text-align:left}.part:hover{border-color:#4b99c8}.hint{font-size:11px;color:var(--muted);padding:10px;line-height:1.45}.canvas{position:relative;background:#071925;overflow:hidden;min-height:620px}.grid{position:absolute;inset:0;background-image:linear-gradient(#11324a 1px,transparent 1px),linear-gradient(90deg,#11324a 1px,transparent 1px);background-size:28px 28px;opacity:.55}.tools{position:sticky;top:0;z-index:8;padding:9px;display:flex;gap:6px;flex-wrap:wrap;background:linear-gradient(#071925 80%,transparent)}.node{position:absolute;width:118px;min-height:64px;background:#102e46;border:2px solid #5ab6ff;border-radius:10px;display:grid;place-items:center;font-size:11px;text-align:center;user-select:none;touch-action:none;box-shadow:0 6px 18px #0005}.node.sel{border-color:var(--yellow);box-shadow:0 0 0 2px #ffd16633,0 6px 18px #0005}.node.running{border-color:var(--green)}.node.fault{border-color:var(--red)}.term{position:absolute;width:10px;height:10px;background:var(--yellow);border-radius:50%;top:25px}.term.l{left:-6px}.term.r{right:-6px}.wire{position:absolute;height:4px;background:#42c7ff;transform-origin:left center;z-index:2;box-shadow:0 0 8px #42c7ff55}.wire.off{background:#5b6e7c;box-shadow:none}.wire.hot{background:var(--green);box-shadow:0 0 9px #5ee6ad88}.statusbar{position:absolute;left:10px;right:10px;bottom:10px;z-index:6;background:#081d2cdd;border:1px solid #20455f;border-radius:9px;padding:9px;font-size:11px}.meters{padding:9px;display:grid;gap:8px}.meter{background:#071925;border:1px solid #20455f;border-radius:9px;padding:9px}.meter small{display:block;color:#7692a7}.meter b{display:block;font-size:21px;margin-top:3px}.actions{padding:9px;border-top:1px solid #173e59;display:grid;gap:7px}.switchState{font-size:11px;color:var(--yellow)}.mission{margin:9px;padding:10px;border:1px solid #2a5873;border-radius:9px;background:#0a2031;font-size:11px;line-height:1.5}.mission b{color:#fff}.taskok{color:var(--green)}.taskbad{color:var(--red)}
+.quiz{display:grid;gap:10px}.q{background:#0a2031;border:1px solid #1c4560;border-radius:11px;padding:12px}.q label{display:block;margin-top:7px;color:#c3d5e1}.q input{margin-right:7px}.result{padding:12px;border-radius:10px;background:#102d42;border:1px solid #2c5f7d}
+.teacherGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{text-align:left;padding:9px;border-bottom:1px solid #173e59}.toggle{display:flex;align-items:center;justify-content:space-between;gap:10px}
+@media(max-width:1100px){.app{grid-template-columns:190px 1fr}.lab{grid-template-columns:185px 1fr}.lab>.right{display:none}.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.app{display:block}aside{display:none}.content{padding:9px}.cards{grid-template-columns:1fr 1fr}.modegrid{grid-template-columns:1fr}.startbox{padding:20px}.start h1{font-size:28px}.lab{display:block;min-height:0}.lab>.left{display:none}.lab>.center{min-height:74vh}.lab>.right{display:block;margin-top:9px}.canvas{min-height:72vh}.top{padding:0 12px}.top h1{font-size:16px}}
 </style>
-
 <script>
-window.EDUVOLT_BUILD="offline-demo";
+window.EDUVOLT_BUILD="interactive-demo-v4";
 window.EDUVOLT_AUTH_MODE="disabled";
 window.EDUVOLT_STORAGE="local";
 window.EDUVOLT_PWA=true;
-window.EDUVOLT_API_MODE="local";
 </script>
 <script src="eduvolt-demo-config.js"></script>
+<script src="simulation-adapter.js"></script>
 </head>
 <body>
-<div id="login" class="login">
- <div class="loginbox">
-  <div class="logo">E</div>
-  <h1>EduVolt Academy</h1>
-  <div class="muted">Offline Demo • No sign in required</div>
-  <p class="muted" style="margin-top:18px">Choose the mode you want to test.</p>
-  <button class="btn primary full" style="margin-top:8px" onclick="enterDemo('STUDENT')">👨‍🎓 Student Mode</button>
-  <button class="btn full" style="margin-top:10px" onclick="enterDemo('TEACHER')">👨‍🏫 Teacher Mode</button>
-  <button class="btn full" style="margin-top:10px" onclick="resetDemo()">↻ Reset Demo Data</button>
-  <p class="muted" style="margin-top:16px">All data stays on this device/browser.</p>
- </div>
+<div id="start" class="start">
+  <div class="startbox">
+    <div class="brandBig"><div class="logo">E</div><div><h1>EduVolt Academy</h1><div class="muted">Interactive Offline Electrical Training Lab</div></div></div>
+    <p>Demo mode — no account or server is required. Choose a role and start testing the real learning flow.</p>
+    <div class="modegrid">
+      <button class="mode" onclick="enterApp('student')"><b>👨‍🎓 Student Mode</b><span class="muted">Experiments · Virtual Lab · Measurements · Quiz · Progress</span></button>
+      <button class="mode" onclick="enterApp('teacher')"><b>👩‍🏫 Teacher Mode</b><span class="muted">Students · Experiments · Submissions · Local demo management</span></button>
+    </div>
+    <div class="demo-actions"><button class="btn" onclick="resetDemo()">↻ Reset Demo Data</button><button class="btn" onclick="installPWA()">＋ Install PWA</button></div>
+    <div class="muted" style="margin-top:12px">All demo data stays on this device/browser.</div>
+  </div>
 </div>
+
 <div id="app" class="app hidden">
-<aside><div class="brand"><div class="logo">E</div><div><b>EduVolt</b><small>ACADEMY</small></div></div>
-<nav>
-<button data-page="dashboard">⌂ Dashboard</button><button data-page="lab">⚡ Virtual Lab</button>
-<button data-page="experiments">◈ Experiments</button><button data-page="progress">◉ My Progress</button>
-<button data-page="teacher">▣ Teacher</button>
-</nav>
-<footer id="userBox"></footer></aside>
-<main><header class="top"><h1 id="title">Dashboard</h1><span class="online">● OFFLINE DEMO</span></header><div class="content" id="content"></div></main>
+<aside>
+  <div class="brand"><div class="logo">E</div><div><b>EduVolt</b><small>ACADEMY</small></div></div>
+  <nav id="nav"></nav>
+  <footer><div id="userBox"></div><span class="mode-badge">OFFLINE DEMO</span></footer>
+</aside>
+<main><header class="top"><h1 id="title">Dashboard</h1><span class="online">● LOCAL MODE</span></header><div class="content" id="content"></div></main>
 </div>
+
 <script>
-const db={
- user:{id:"student-001",name:"EduVolt Student",email:"student@eduvolt.local",role:"STUDENT"},
- student:{studentCode:"EV-S-001",className:"Electrical Installations",totalScore:0,attempts:0,completed:[]},
- experiments:[{id:"exp-lamp-001",title:"Basic Lamp Circuit",subject:"Electrical Installations",level:"Beginner",passing:70,published:true}],
- attempt:{id:"attempt-001",experimentId:"exp-lamp-001",status:"STARTED",score:0,passed:false},
- session:null
+const KEY='eduvolt-demo-v4';
+const seed={
+ user:{id:'student-001',name:'EduVolt Student',email:'student@eduvolt.local',role:'STUDENT'},
+ student:{studentCode:'EV-S-001',className:'Electrical Installations',totalScore:0,attempts:0,completed:[],quizScore:null},
+ experiments:[
+  {id:'lamp-001',title:'Basic Lamp Circuit',subject:'Electrical Installations',level:'Beginner',passing:70,published:true,mission:'Build a safe series circuit: AC Source → Switch → Lamp.'},
+  {id:'motor-001',title:'Motor Start Circuit',subject:'Motor Control',level:'Intermediate',passing:70,published:true,mission:'Build Source → Switch → Motor and run the circuit.'},
+  {id:'fault-001',title:'Find the Open Circuit',subject:'Troubleshooting',level:'Practical',passing:70,published:true,mission:'Build the circuit, open the switch, observe the measurements, then close it and run.'}
+ ],
+ attempts:[],settings:{published:{'lamp-001':true,'motor-001':true,'fault-001':true}}
 };
-const state={page:"dashboard",running:false,nodes:[],selected:null,wires:[],meters:{v:"230.0 V",i:"0.000 A",r:"0.00 Ω",p:"0.0 W"}};
-const STORAGE_KEY="eduvolt-offline-demo-v2";
-function loadLocal(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved?.student)db.student={...db.student,...saved.student};if(saved?.attempt)db.attempt={...db.attempt,...saved.attempt};}catch(_){} }
-function saveLocal(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({student:db.student,attempt:db.attempt}));}catch(_){} }
-function enterDemo(role){loadLocal();db.user=role==="TEACHER"?{id:"teacher-demo",name:"EduVolt Teacher",email:"teacher@eduvolt.local",role:"TEACHER"}:{id:"student-001",name:"EduVolt Student",email:"student@eduvolt.local",role:"STUDENT"};db.session={demo:true,role};document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");document.getElementById("userBox").innerHTML=`${db.user.name}<br>${db.user.role}<br><button class="btn" style="margin-top:8px" onclick="leaveDemo()">Switch mode</button>`;state.page=role==="TEACHER"?"teacher":"dashboard";render();}
-function leaveDemo(){document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden");}
-function resetDemo(){try{localStorage.removeItem(STORAGE_KEY)}catch(_){}db.student={studentCode:"EV-S-001",className:"Electrical Installations",totalScore:0,attempts:0,completed:[]};db.attempt={id:"attempt-001",experimentId:"exp-lamp-001",status:"STARTED",score:0,passed:false};alert("Demo data has been reset.");}
-function login(){enterDemo("STUDENT")}
-function setPage(p){state.page=p;render()}
-function addNode(name){const id=Date.now()+"-"+state.nodes.length;state.nodes.push({id,name,x:110+(state.nodes.length%4)*135,y:170+Math.floor(state.nodes.length/4)*100,rot:0});state.selected=id;drawLab()}
-function connect(){if(state.nodes.length<2){alert("Add two or more components.");return}state.wires=[];for(let i=0;i<state.nodes.length-1;i++)state.wires.push([state.nodes[i].id,state.nodes[i+1].id]);drawLab()}
-function run(){if(state.nodes.length<2){alert("Build the circuit first.");return}state.running=true;state.meters={v:"230.0 V",i:"2.300 A",r:"100.00 Ω",p:"529.0 W"};drawLab()}
-function stop(){state.running=false;state.meters={v:"230.0 V",i:"0.000 A",r:"0.00 Ω",p:"0.0 W"};drawLab()}
-function submit(){
- if(!state.running){alert("Run the simulation first.");return}
- db.attempt.status="GRADED";
- db.attempt.score=95;
- db.attempt.passed=true;
- db.student.totalScore=(db.student.totalScore||0)+95;
- db.student.attempts=(db.student.attempts||0)+1;
- if(!db.student.completed.includes(db.attempt.experimentId)) db.student.completed.push(db.attempt.experimentId);
- saveLocal();
- alert("Submission accepted — 95/100");
- render();
-}
-function clearLab(){state.nodes=[];state.wires=[];state.selected=null;stop()}
-function rotate(){const n=state.nodes.find(x=>x.id===state.selected);if(n){n.rot=(n.rot+90)%360;drawLab()}}
-function drawLab(){document.getElementById("content").innerHTML=labHTML();renderNodes();renderWires()}
-function labHTML(){return `<div class="lab"><div class="panel left"><div class="ph">COMPONENT LIBRARY</div><div class="palette">${["AC Source","Switch","Lamp","Motor","Resistor","Fuse"].map(x=>`<button class="part" onclick="addNode('${x}')">${x}</button>`).join("")}<button class="btn" onclick="connect()">Auto Wire</button></div></div><div class="panel center"><div class="grid"></div><div class="tools"><button class="btn" onclick="clearLab()">Clear</button><button class="btn" onclick="rotate()">Rotate</button><button class="btn" onclick="connect()">Connect</button><button class="btn primary" onclick="run()">▶ Run</button><button class="btn" onclick="stop()">■ Stop</button></div><div id="wires"></div><div id="nodes"></div></div><div class="panel right"><div class="ph">LIVE INSTRUMENTS</div><div class="meters">${meter("VOLTAGE",state.meters.v)}${meter("CURRENT",state.meters.i)}${meter("RESISTANCE",state.meters.r)}${meter("POWER",state.meters.p)}${meter("SIMULATION",state.running?"RUNNING":"STOPPED")}</div><div class="actions"><button class="btn primary" onclick="submit()">Submit Experiment</button></div></div></div>`}
-function meter(a,b){return `<div class="meter"><small>${a}</small><b>${b}</b></div>`}
-function renderNodes(){const e=document.getElementById("nodes");if(!e)return;e.innerHTML=state.nodes.map(n=>`<div class="node ${n.id===state.selected?"sel":""}" onclick="state.selected='${n.id}';drawLab()" style="left:${n.x}px;top:${n.y}px;transform:rotate(${n.rot}deg)"><span class="term l"></span>${n.name}<span class="term r"></span></div>`).join("")}
-function renderWires(){const e=document.getElementById("wires");if(!e)return;e.innerHTML=state.wires.map(w=>{const a=state.nodes.find(n=>n.id===w[0]),b=state.nodes.find(n=>n.id===w[1]);if(!a||!b)return"";const x1=a.x+105,y1=a.y+31,x2=b.x,y2=b.y+31,dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy),ang=Math.atan2(dy,dx)*180/Math.PI;return `<div class="wire" style="left:${x1}px;top:${y1}px;width:${len}px;transform:rotate(${ang}deg)"></div>`}).join("")}
+let db=loadDB();
+const state={role:'student',page:'dashboard',running:false,nodes:[],selected:null,wires:[],meters:{v:'0.0 V',i:'0.000 A',r:'0.00 Ω',p:'0.0 W'},switchClosed:true,lastSolve:null,drag:null,quizResult:null};
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function loadDB(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');return x?Object.assign(clone(seed),x):clone(seed)}catch{return clone(seed)}}
+function saveDB(){localStorage.setItem(KEY,JSON.stringify(db))}
+function resetDemo(){localStorage.removeItem(KEY);db=clone(seed);state.nodes=[];state.wires=[];state.selected=null;state.running=false;state.lastSolve=null;alert('Demo data reset.');location.reload()}
+function enterApp(role){state.role=role;state.page=role==='teacher'?'teacher':'dashboard';document.getElementById('start').classList.add('hidden');document.getElementById('app').classList.remove('hidden');buildNav();document.getElementById('userBox').innerHTML=role==='teacher'?'Demo Teacher<br>teacher@eduvolt.local':'EduVolt Student<br>student@eduvolt.local';render()}
+function buildNav(){const items=state.role==='teacher'?[['teacher','▣ Teacher Dashboard'],['experiments','◈ Experiments'],['student','👨‍🎓 Student Preview'],['lab','⚡ Virtual Lab']]:[['dashboard','⌂ Dashboard'],['experiments','◈ Experiments'],['lab','⚡ Virtual Lab'],['quiz','✓ Safety Quiz'],['progress','◉ My Progress'],['teacher','▣ Teacher Preview']];document.getElementById('nav').innerHTML=items.map(([p,t])=>`<button data-page="${p}" onclick="setPage('${p}')">${t}</button>`).join('')}
+function setPage(p){if(p==='student'){state.role='student';buildNav();p='dashboard'}else if(p==='teacher'){state.role='teacher';buildNav()}state.page=p;render()}
 function card(a,b){return `<div class="card"><div class="muted">${a}</div><div class="big">${b}</div></div>`}
-function dashboard(){const avg=db.student.attempts?Math.round(db.student.totalScore/(db.student.attempts*100)*100):0;return `<div class="cards">${card("Completed",db.student.completed.length)}${card("Average Score",avg+"%")}${card("Attempts",db.student.attempts)}${card("Total Score",db.student.totalScore)}</div><div class="card" style="margin-top:12px"><b>Welcome, ${db.user.name}</b><p class="muted">Your learning data is now read from the application data layer.</p><button class="btn primary" onclick="setPage('lab')">Open Virtual Lab</button></div>`}
-function experiments(){return `<div class="list">${db.experiments.filter(x=>x.published).map(x=>`<div class="card item"><div><b>${x.title}</b><div class="muted">${x.subject} · ${x.level} · Pass ${x.passing}%</div></div><button class="btn primary" onclick="setPage('lab')">Start</button></div>`).join("")}</div>`}
-function progress(){return `<div class="cards">${card("Completed",db.student.completed.length)}${card("Attempts",db.student.attempts)}${card("Total Score",db.student.totalScore)}${card("Latest",db.attempt.status==="GRADED"?"95/100":"—")}</div><div class="card" style="margin-top:12px"><b>Basic Lamp Circuit</b><p class="muted">${db.attempt.status==="GRADED"?"Passed — result saved in application data.":"Not submitted yet."}</p></div>`}
-function teacher(){
-return `<div class="cards">${card("Students",126)}${card("Experiments",8)}${card("Submissions Today",34)}${card("Average Score","88%")}</div>
-<div class="card" style="margin-top:12px">
-<b>Teacher Workspace</b>
-<p class="muted">Manage students, experiments and submissions from one workspace.</p>
-<div class="list" style="margin-top:12px">
-<div class="item"><span>Students directory</span><button class="btn" onclick="alert('Student directory connected to the management service.')">Open</button></div>
-<div class="item"><span>Experiment management</span><button class="btn" onclick="alert('Create / publish / unpublish is connected to the management layer.')">Open</button></div>
-<div class="item"><span>Submission monitoring</span><button class="btn" onclick="alert('Submission monitoring is connected to attempts data.')">Open</button></div>
-</div></div>`}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 
-function render(){document.getElementById("title").textContent=state.page==="lab"?"Virtual Lab":state.page[0].toUpperCase()+state.page.slice(1);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===state.page));if(state.page==="lab")return drawLab();document.getElementById("content").innerHTML=state.page==="dashboard"?dashboard():state.page==="experiments"?experiments():state.page==="progress"?progress():teacher()}
-loadLocal();
-loadLocal();
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>setPage(b.dataset.page));
+function dashboard(){const avg=db.student.attempts?Math.round(db.student.totalScore/db.student.attempts):0;return `<div class="cards">${card('Completed',db.student.completed.length)}${card('Average Score',avg+'%')}${card('Attempts',db.student.attempts)}${card('Quiz',db.student.quizScore===null?'—':db.student.quizScore+'%')}</div><div class="card" style="margin-top:12px"><b>Welcome, EduVolt Student</b><p class="muted">This demo now contains a usable learning loop: choose an experiment, build the circuit, run measurements, submit it, then review progress.</p><div class="chips"><span class="chip">Offline</span><span class="chip">Local Storage</span><span class="chip">PWA</span><span class="chip">No Login</span></div><button class="btn primary" style="margin-top:13px" onclick="setPage('experiments')">Start an Experiment</button></div><div class="sectionTitle">Learning progress</div><div class="card"><div class="item"><span>Practical experiments</span><b>${db.student.completed.length}/${db.experiments.length}</b></div><div class="progress" style="margin-top:8px"><i style="width:${Math.min(100,db.student.completed.length/db.experiments.length*100)}%"></i></div></div>`}
+function experiments(){const list=db.experiments.filter(x=>x.published!==false);return `<div class="sectionTitle">Available Experiments</div><div class="list">${list.map(x=>`<div class="card item"><div><b>${esc(x.title)}</b><div class="muted">${esc(x.subject)} · ${esc(x.level)} · Pass ${x.passing}%</div><div class="muted" style="margin-top:5px">${esc(x.mission)}</div></div><button class="btn primary" onclick="startExperiment('${x.id}')">Start</button></div>`).join('')}</div>`}
+function startExperiment(id){state.nodes=[];state.wires=[];state.selected=null;state.running=false;state.lastSolve=null;state.currentExperiment=id;setPage('lab');}
+function progress(){const rows=db.attempts.length?db.attempts.slice().reverse().map(a=>`<tr><td>${esc(a.title)}</td><td>${a.score}%</td><td>${a.passed?'Passed':'Not passed'}</td><td>${new Date(a.date).toLocaleString()}</td></tr>`).join(''):`<tr><td colspan="4" class="muted">No submissions yet.</td></tr>`;return `<div class="cards">${card('Completed',db.student.completed.length)}${card('Attempts',db.student.attempts)}${card('Total Score',db.student.totalScore)}${card('Latest',db.attempts.length?db.attempts[db.attempts.length-1].score+'%':'—')}</div><div class="sectionTitle">Submission history</div><div class="card"><table class="table"><thead><tr><th>Experiment</th><th>Score</th><th>Status</th><th>Date</th></tr></thead><tbody>${rows}</tbody></table></div>`}
+function quiz(){if(state.quizResult!==null)return `<div class="card"><b>Safety Quiz Result</b><div class="result" style="margin-top:10px"><strong>${state.quizResult}%</strong><div class="muted">You can retake the quiz below.</div></div></div>`+quizForm();return quizForm()}
+function quizForm(){const qs=[['q1','Before wiring a circuit, what should you do?',['Isolate the supply','Touch the live terminal','Increase voltage']],['q2','What is the main purpose of a fuse?',['Protect against excessive current','Increase current','Measure resistance']],['q3','A switch in the open state normally means:',['The circuit path is interrupted','The circuit is shorted','Voltage becomes zero everywhere']],['q4','Which instrument measures current?',['Ammeter','Voltmeter','Ohmmeter']],['q5','What should you do if a circuit behaves unexpectedly?',['Stop and inspect safely','Keep touching components','Bypass protection devices']]];return `<div class="quiz">${qs.map(([id,q,opts])=>`<div class="q"><b>${q}</b>${opts.map((o,i)=>`<label><input type="radio" name="${id}" value="${i}">${o}</label>`).join('')}</div>`).join('')}<button class="btn primary" onclick="gradeQuiz()">Submit Quiz</button></div>`}
+function gradeQuiz(){const correct=[0,0,0,0,0];let score=0;correct.forEach((c,i)=>{const x=document.querySelector(`input[name=q${i+1}]:checked`);if(x&&Number(x.value)===c)score++});state.quizResult=score*20;db.student.quizScore=state.quizResult;saveDB();render()}
 
-</script>
-
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    const base = document.querySelector("base")?.href || location.href;
-    const sw = new URL("service-worker.js", base);
-    navigator.serviceWorker.register(sw.pathname);
-  });
-}
+function lab(){const exp=db.experiments.find(x=>x.id===(state.currentExperiment||'lamp-001'))||db.experiments[0];return `<div class="lab"><div class="panel left"><div class="ph">COMPONENT LIBRARY</div><div class="mission"><b>Mission</b><br>${esc(exp.mission)}</div><div class="palette">${['AC Source','Switch','Lamp','Motor','Resistor','Fuse'].map(x=>`<button class="part" onclick="addNode('${x}')">＋ ${x}</button>`).join('')}</div><div class="hint">Tap a component to add it. Tap two components and press Connect. Select a switch to toggle it. You can also use Auto Wire for a quick practice setup.</div></div><div class="panel center"><div class="canvas"><div class="grid"></div><div class="tools"><button class="btn" onclick="clearLab()">Clear</button><button class="btn" onclick="rotate()">Rotate</button><button class="btn" onclick="connect()">Connect Selected</button><button class="btn" onclick="autoWire()">Auto Wire</button><button class="btn success" onclick="quickBuild()">⚡ Quick Build</button><button class="btn primary" onclick="run()">▶ Run</button><button class="btn" onclick="stop()">■ Stop</button><button class="btn success" onclick="saveCircuit()">Save</button><button class="btn" onclick="loadCircuit()">Load</button></div><div id="wires"></div><div id="nodes"></div><div class="statusbar" id="labStatus">${state.lastSolve?statusText():'Add components to start building.'}</div></div></div><div class="panel right"><div class="ph">LIVE INSTRUMENTS</div><div class="meters">${meter('VOLTAGE',state.meters.v)}${meter('CURRENT',state.meters.i)}${meter('RESISTANCE',state.meters.r)}${meter('POWER',state.meters.p)}${meter('SIMULATION',state.running?'RUNNING':'STOPPED')}${meter('SCORE',state.lastSolve?state.lastSolve.score+'/100':'—')}</div><div class="actions"><div class="switchState">Switch: ${state.switchClosed?'CLOSED':'OPEN'}</div><button class="btn" onclick="toggleSwitch()">Toggle Switch</button><button class="btn primary" onclick="submitExperiment()">Submit Experiment</button><button class="btn danger" onclick="clearLab()">Reset Circuit</button></div></div></div>`}
+function meter(a,b){return `<div class="meter"><small>${a}</small><b>${b}</b></div>`}
+function addNode(name){const id='n'+Date.now()+Math.random().toString(16).slice(2);const i=state.nodes.length;state.nodes.push({id,name,x:40+(i%4)*145,y:100+Math.floor(i/4)*105,rot:0,closed:name==='Switch'?state.switchClosed:undefined});state.selected=id;drawLab()}
+function selectNode(id){state.selected=id;drawLab()}
+function toggleSwitch(){const sw=state.nodes.find(n=>n.name==='Switch');if(!sw){alert('Add a Switch first.');return}state.switchClosed=!state.switchClosed;sw.closed=state.switchClosed;if(state.running)run();else drawLab()}
+function connect(){if(state.nodes.length<2){alert('Add at least two components.');return}const selected=state.nodes.filter(n=>n.id===state.selected);if(selected.length){} if(state.wires.length>=state.nodes.length-1){alert('For this demo, Auto Wire or the existing connections are enough.');return}autoWire()}
+function autoWire(){if(state.nodes.length<2){alert('Add at least two components.');return}state.wires=[];for(let i=0;i<state.nodes.length-1;i++)state.wires.push([state.nodes[i].id,state.nodes[i+1].id]);drawLab()}
+function quickBuild(){state.nodes=[];state.wires=[];state.selected=null;state.switchClosed=true;['AC Source','Switch','Lamp'].forEach((name,i)=>state.nodes.push({id:'q'+Date.now()+i,name,x:55+i*175,y:220,rot:0,closed:name==='Switch'?true:undefined}));state.wires=[[state.nodes[0].id,state.nodes[1].id],[state.nodes[1].id,state.nodes[2].id]];state.currentExperiment=state.currentExperiment||'lamp-001';state.lastSolve=null;state.running=false;drawLab()}
+function clearLab(){state.nodes=[];state.wires=[];state.selected=null;state.running=false;state.lastSolve=null;state.meters={v:'0.0 V',i:'0.000 A',r:'0.00 Ω',p:'0.0 W'};drawLab()}
+function rotate(){const n=state.nodes.find(x=>x.id===state.selected);if(n){n.rot=(n.rot+90)%360;drawLab()}}
+function deleteSelected(){const i=state.nodes.findIndex(x=>x.id===state.selected);if(i<0)return;const id=state.nodes[i].id;state.nodes.splice(i,1);state.wires=state.wires.filter(w=>w[0]!==id&&w[1]!==id);state.selected=null;drawLab()}
+function run(){const nodes=state.nodes.map(n=>({...n,closed:n.name==='Switch'?state.switchClosed:n.closed}));const wires=state.wires;let result=window.EduVoltSimulation?window.EduVoltSimulation.solve(nodes,wires,230):fallbackSolve(nodes,wires);state.lastSolve=result;state.running=!!result.running;state.meters={v:(result.voltage||0).toFixed(1)+' V',i:(result.current||0).toFixed(3)+' A',r:(result.resistance||0).toFixed(2)+' Ω',p:(result.power||0).toFixed(1)+' W'};drawLab()}
+function fallbackSolve(nodes,wires){const source=nodes.find(n=>n.name==='AC Source');const load=nodes.find(n=>['Lamp','Motor','Resistor'].includes(n.name));if(!source)return{valid:false,running:false,voltage:0,current:0,resistance:0,power:0,score:0,fault:'No AC source'};if(!load)return{valid:false,running:false,voltage:230,current:0,resistance:0,power:0,score:0,fault:'No load'};if(nodes.some(n=>n.name==='Switch'&&n.closed===false))return{valid:true,running:false,voltage:230,current:0,resistance:0,power:0,score:55,fault:'Switch open'};return{valid:true,running:true,voltage:230,current:2.3,resistance:100,power:529,score:100,fault:null}}
+function stop(){state.running=false;state.meters={v:'230.0 V',i:'0.000 A',r:'0.00 Ω',p:'0.0 W'};if(state.lastSolve)state.lastSolve={...state.lastSolve,running:false};drawLab()}
+function statusText(){const r=state.lastSolve;return r.fault?`⚠ ${r.fault}`:`✓ Circuit energized — ${r.current.toFixed(3)} A · ${r.power.toFixed(1)} W`}
+function submitExperiment(){if(!state.lastSolve)run();const r=state.lastSolve;if(!r||!r.valid){alert('Fix the circuit first, then Run it.');return}const exp=db.experiments.find(x=>x.id===(state.currentExperiment||'lamp-001'))||db.experiments[0];const score=r.score;const passed=score>=exp.passing;db.student.attempts++;db.student.totalScore+=score;if(passed&&!db.student.completed.includes(exp.id))db.student.completed.push(exp.id);db.attempts.push({id:'a'+Date.now(),experimentId:exp.id,title:exp.title,score,passed,date:new Date().toISOString()});saveDB();alert(`${exp.title}\nScore: ${score}/100\n${passed?'Passed ✓':'Not passed — try again.'}`);state.page='progress';render()}
+function saveCircuit(){localStorage.setItem(KEY+'.circuit',JSON.stringify({nodes:state.nodes,wires:state.wires,switchClosed:state.switchClosed,currentExperiment:state.currentExperiment}));alert('Circuit saved locally.');}
+function loadCircuit(){try{const x=JSON.parse(localStorage.getItem(KEY+'.circuit')||'null');if(!x){alert('No saved circuit.');return}state.nodes=x.nodes||[];state.wires=x.wires||[];state.switchClosed=x.switchClosed!==false;state.currentExperiment=x.currentExperiment||'lamp-001';state.selected=null;state.lastSolve=null;drawLab();}catch{alert('Saved circuit is invalid.')}}
+function drawLab(){document.getElementById('content').innerHTML=lab();renderNodes();renderWires()}
+function renderNodes(){const e=document.getElementById('nodes');if(!e)return;e.innerHTML=state.nodes.map(n=>`<div class="node ${n.id===state.selected?'sel':''} ${state.running?'running':''}" onclick="selectNode('${n.id}')" ondblclick="${n.name==='Switch'?'toggleSwitch()':'rotate()'}" style="left:${n.x}px;top:${n.y}px;transform:rotate(${n.rot}deg)"><span class="term l"></span>${esc(n.name)}${n.name==='Switch'?`<div class="muted">${state.switchClosed?'CLOSED':'OPEN'}</div>`:''}<span class="term r"></span></div>`).join('')}
+function renderWires(){const e=document.getElementById('wires');if(!e)return;e.innerHTML=state.wires.map(w=>{const a=state.nodes.find(n=>n.id===w[0]),b=state.nodes.find(n=>n.id===w[1]);if(!a||!b)return'';const x1=a.x+118,y1=a.y+32,x2=b.x,y2=b.y+32,dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy),ang=Math.atan2(dy,dx)*180/Math.PI;return `<div class="wire ${state.running?'hot':''}" style="left:${x1}px;top:${y1}px;width:${len}px;transform:rotate(${ang}deg)"></div>`}).join('')}
+function teacher(){const students=db.attempts.length?1:0;const avg=db.attempts.length?Math.round(db.attempts.reduce((s,a)=>s+a.score,0)/db.attempts.length):0;return `<div class="cards">${card('Demo Students',students||1)}${card('Experiments',db.experiments.length)}${card('Submissions',db.attempts.length)}${card('Average Score',avg+'%')}</div><div class="teacherGrid" style="margin-top:12px"><div class="card"><b>Experiment Management</b><p class="muted">Publish or hide experiments in the local demo.</p>${db.experiments.map(x=>`<div class="toggle" style="margin-top:10px"><span>${esc(x.title)}</span><button class="btn ${x.published?'success':''}" onclick="toggleExperiment('${x.id}')">${x.published?'Published':'Hidden'}</button></div>`).join('')}</div><div class="card"><b>Submission Monitoring</b><table class="table" style="margin-top:8px"><thead><tr><th>Experiment</th><th>Score</th><th>Status</th></tr></thead><tbody>${db.attempts.length?db.attempts.slice().reverse().map(a=>`<tr><td>${esc(a.title)}</td><td>${a.score}</td><td>${a.passed?'Passed':'Retry'}</td></tr>`).join(''):`<tr><td colspan="3" class="muted">No submissions yet.</td></tr>`}</tbody></table></div></div><div class="card" style="margin-top:12px"><b>Demo controls</b><div class="demo-actions"><button class="btn primary" onclick="setPage('lab')">Open Lab</button><button class="btn" onclick="setPage('student')">Preview Student</button><button class="btn danger" onclick="resetDemo()">Reset All Demo Data</button></div></div>`}
+function toggleExperiment(id){const x=db.experiments.find(e=>e.id===id);if(x){x.published=!x.published;saveDB();render()}}
+function render(){document.getElementById('title').textContent=state.page==='lab'?'Virtual Lab':state.page==='teacher'?'Teacher Dashboard':state.page==='quiz'?'Safety Quiz':state.page[0].toUpperCase()+state.page.slice(1);document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===state.page));if(state.page==='lab')return drawLab();document.getElementById('content').innerHTML=state.page==='dashboard'?dashboard():state.page==='experiments'?experiments():state.page==='progress'?progress():state.page==='quiz'?quiz():teacher()}
+let deferredPrompt=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});async function installPWA(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null}else alert('If the browser does not show an install prompt, use the browser menu → Add to Home screen.')}
+window.addEventListener('keydown',e=>{if(e.key==='Delete')deleteSelected();if(e.key==='Escape')state.selected=null});
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register(new URL('service-worker.js',document.baseURI)).catch(()=>{}));
 </script>
 </body>
 </html>

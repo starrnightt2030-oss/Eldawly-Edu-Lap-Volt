@@ -1,9 +1,11 @@
-const CACHE = "eduvolt-offline-v2";
+const CACHE = "eduvolt-offline-v4";
 const CORE = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./service-worker.js",
+  "./eduvolt-demo-config.js",
+  "./simulation-adapter.js",
   "./icon-192.svg",
   "./icon-512.svg"
 ];

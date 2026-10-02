@@ -1,11 +1,18 @@
-# EduVolt Academy — GitHub Pages
+# EduVolt Academy — Mobile GitHub Upload
 
-This is the offline/demo PWA build.
+This package is intentionally FLAT.
 
-## Publish
-Upload the contents of this package to the repository root, then enable GitHub Pages from the repository's Pages settings.
+Upload ALL files in this package directly to the repository root.
+No folder creation is required.
 
-Authentication is intentionally disabled in this build. Data is local to the device/browser.
+Required root files:
+- index.html
+- manifest.webmanifest
+- service-worker.js
+- eduvolt-demo-config.js
+- simulation-adapter.js
+- icon-192.svg
+- icon-512.svg
 
-## Test
-Open the published Pages URL, install EduVolt as a PWA, then test offline behavior.
+After uploading, enable GitHub Pages for the repository.
+The PWA uses root-relative icons and does not require an `icons` folder.
